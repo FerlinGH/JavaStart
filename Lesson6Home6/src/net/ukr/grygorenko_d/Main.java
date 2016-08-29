@@ -1,14 +1,13 @@
-/*
- * Существуют такие последовательности чисел
+/* РЎСѓС‰РµСЃС‚РІСѓСЋС‚ С‚Р°РєРёРµ РїРѕСЃР»РµРґРѕРІР°С‚РµР»СЊРЅРѕСЃС‚Рё С‡РёСЃРµР»
 0,2,4,6,8,10,12
 1,4,7,10,13
 1,2,4,8,16,32
 1,3,9,27
 1,4,9,16,25
 1,8,27,64,125
-Реализуйте программу которая выведет следующий член этой
-последовательности (либо подобной им). Например пользователь вводит
-строку 0,2,4,6,8,10,12 ответом программы должно быть число 14.
+Р РµР°Р»РёР·СѓР№С‚Рµ РїСЂРѕРіСЂР°РјРјСѓ РєРѕС‚РѕСЂР°СЏ РІС‹РІРµРґРµС‚ СЃР»РµРґСѓСЋС‰РёР№ С‡Р»РµРЅ СЌС‚РѕР№
+РїРѕСЃР»РµРґРѕРІР°С‚РµР»СЊРЅРѕСЃС‚Рё (Р»РёР±Рѕ РїРѕРґРѕР±РЅРѕР№ РёРј). РќР°РїСЂРёРјРµСЂ РїРѕР»СЊР·РѕРІР°С‚РµР»СЊ РІРІРѕРґРёС‚
+СЃС‚СЂРѕРєСѓ 0,2,4,6,8,10,12 РѕС‚РІРµС‚РѕРј РїСЂРѕРіСЂР°РјРјС‹ РґРѕР»Р¶РЅРѕ Р±С‹С‚СЊ С‡РёСЃР»Рѕ 14.
  */
 package net.ukr.grygorenko_d;
 
@@ -23,7 +22,7 @@ public class Main {
 		int checkLaw = 0;
 		int lawValue = 0;
 		lawValue = detectLaw(array, lawValue, checkLaw);
-		switch (lawValue){
+		switch (lawValue) {
 		case 1:
 			runLaw1(array);
 			break;
@@ -37,7 +36,7 @@ public class Main {
 			System.out.println("Wrong sequence!");
 			break;
 		}
-			
+
 	}
 
 	static int[] setSequence(int[] array, Scanner scan) {
@@ -58,49 +57,53 @@ public class Main {
 
 	static int detectLaw(int[] array, int lawValue, int checkLaw) {
 		if ((array[1] - array[0] == array[2] - array[1]) && (array[2] - array[1] == array[3] - array[2])) {
-			checkLaw=array[3] + (array[1] - array[0]);
-			if (checkLaw == array[4]){
-				return 1;
-			}else{
+			checkLaw = array[3] + (array[1] - array[0]);
+			if (checkLaw == array[4]) {
+				return 1;		
+			} else {
 				return 0;
 			}
-		} else if ((array[1] / array[0] == array[2] / array[1]) && (array[2] / array[1] == array[3] / array[2])) {
-			checkLaw=array[3] * (array[1] / array[0]);
-			if (checkLaw == array[4]){
-				return 2;
-			}else{
+		} else if ((array[1] % array[0] == 0) && (array[2] % array[1] == 0) && (array[3] / array[2] == 0)) {
+			if ((array[1] / array[0] == array[2] / array[1]) && (array[2] / array[1] == array[3] / array[2])) {
+				checkLaw = array[3] * (array[1] / array[0]);
+				if (checkLaw == array[4]) {
+					return 2;
+				} else {
+					return 0;
+				}
+			} else {
 				return 0;
 			}
 		} else {
-			double pow = (Math.log(array[1])/Math.log(2));
-			if ((Math.pow(3, pow) == array[2]) && (Math.pow(4, pow)== array[3])){
-				if ((array[0]==1) && (Math.pow(5, pow) == array[4])){
+			double pow = (Math.log(array[1]) / Math.log(2));
+			if ((Math.pow(3, pow) == array[2]) && (Math.pow(4, pow) == array[3])) {
+				if ((array[0] == 1) && (Math.pow(5, pow) == array[4])) {
 					return 3;
 				} else {
 					return 0;
 				}
-			}else {
+			} else {
 				return 0;
 			}
 		}
 	}
-	
-	static void runLaw1(int[] array){
+
+	static void runLaw1(int[] array) {
 		int argument = array[1] - array[0];
 		showSequence(array);
-		System.out.print( "   - next element is " + (array[4] + argument));
+		System.out.print("   - next element is " + (array[4] + argument));
 	}
-	
-	static void runLaw2(int[] array){
+
+	static void runLaw2(int[] array) {
 		int argument = array[1] / array[0];
 		showSequence(array);
-		System.out.print( "   - next element is " + (array[4] * argument));
+		System.out.print("   - next element is " + (array[4] * argument));
 	}
-	
-	static void runLaw3(int[] array){
-		double argument = Math.log(array[1])/Math.log(2);
+
+	static void runLaw3(int[] array) {
+		double argument = Math.log(array[1]) / Math.log(2);
 		showSequence(array);
-		System.out.print( "   - next element is " + Math.pow(6, argument));
+		System.out.print("   - next element is " + Math.pow(6, argument));
 	}
 
 }
